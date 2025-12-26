@@ -7,13 +7,13 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest  # 重点：指定使用 Mac 系统构建
+    runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4  # 这里更新到了 v4
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5  # 这里更新到了 v5
       with:
         python-version: '3.10'
 
@@ -24,11 +24,10 @@ jobs:
 
     - name: Build with PyInstaller
       run: |
-        # 这里就是 Mac 的打包命令
         pyinstaller --windowed --onefile --name="图片压缩神器" image_tool.py
 
     - name: Upload Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4  # 【关键修改】这里必须改成 v4
       with:
         name: Mac-App
         path: dist/
